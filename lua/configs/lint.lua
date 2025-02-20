@@ -2,8 +2,10 @@ local lint = require("lint")
 
 lint.linters_by_ft = {
     lua = { "luacheck" },
+    -- [" asm "] = { "nasm" },
     -- python = { "flake8" }, -- this caused trouble with cph
     javascript = { "eslint_d" },
+    -- java = { "jdtls" },
 }
 
 lint.linters.luacheck.args = {

@@ -1,4 +1,21 @@
 return {
+
+    -- {
+    --     "folke/noice.nvim",
+    --     event = "VeryLazy",
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify",
+    --     },
+    --     config = function()
+    --         require("configs.noice").setup()
+    --     end,
+    -- },
+
+    {
+        { import = "configs.java" },
+    },
+
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -124,7 +141,7 @@ return {
             require("luasnip.loaders.from_vscode").lazy_load()
 
             -- Load custom Lua-based snippets
-            require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets" })
+            require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets" })
         end,
     },
 }

@@ -5,7 +5,7 @@ require("nvchad.options")
 local o = vim.o
 
 o.relativenumber = true
-o.shiftwidth = 2
+o.shiftwidth = 4
 o.tabstop = 2
 o.softtabstop = 2
 

@@ -20,13 +20,16 @@ cmp.setup({
         ["<C-e>"] = cmp.mapping.abort(), -- Close completion
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm completion
     }),
+    -- sorting = {
+    --     priority_weight = 2, -- Give more weight to priority values
+    -- },
 
     -- Completion sources
     sources = cmp.config.sources({
-        { name = "nvim_lsp" }, -- LSP source for completions
-        { name = "luasnip" }, -- LuaSnip source for snippets
+        { name = "luasnip", priority = 1000 }, -- LuaSnip source for snippets
+        { name = "nvim_lsp", priority = 500 }, -- LSP source for completions
     }, {
-        { name = "buffer" }, -- Buffer source for words already in the buffer
+        { name = "buffer", priority = 300 }, -- Buffer source for words already in the buffer
     }),
 
     -- Filetype-specific configurations (for gitcommit)

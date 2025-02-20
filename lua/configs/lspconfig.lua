@@ -3,9 +3,12 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require("lspconfig")
+local util = require("lspconfig/util")
 
 -- list of all servers configured.
 lspconfig.servers = {
+    -- "jdtls",
+    "gopls",
     "lua_ls",
     "pyright",
     "clangd",
@@ -14,7 +17,7 @@ lspconfig.servers = {
 }
 
 -- list of servers configured with default config.
-local default_servers = { "pyright", "clangd", "ts_ls", "eslint" }
+local default_servers = { "gopls", "pyright", "clangd", "ts_ls", "eslint" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -24,6 +27,23 @@ for _, lsp in ipairs(default_servers) do
         capabilities = capabilities,
     })
 end
+
+lspconfig.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+        gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+                unusedparams = true,
+            },
+        },
+    },
+})
 
 lspconfig.clangd.setup({
     on_attach = function(client, bufnr)
