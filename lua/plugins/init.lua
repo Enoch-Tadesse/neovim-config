@@ -1,16 +1,30 @@
 return {
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "Telescope", -- Lazy-load on :Telescope command
+        config = function()
+            require("configs.telescope") -- Load external config file
+        end,
+    },
 
-    -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
-    --     dependencies = {
-    --         "MunifTanjim/nui.nvim",
-    --         "rcarriga/nvim-notify",
-    --     },
-    --     config = function()
-    --         require("configs.noice").setup()
-    --     end,
-    -- },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        ---@module 'render-markdown'
+        ---@type render.md.UserConfig
+        opts = {},
+    },
+
+    {
+        "stevearc/dressing.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("configs.dressing").setup()
+        end,
+    },
 
     {
         { import = "configs.java" },
@@ -118,15 +132,11 @@ return {
 
     {
         "A7lavinraj/assistant.nvim",
-        lazy = false,
-        enabled = true,
-        dependencies = { "stevearc/dressing.nvim" }, -- optional but recommended
+        commit = "ca42f5231203ff3c9356180f2d4ca96061a70ef4",
+        dependencies = { "folke/snacks.nvim" }, -- optional but recommended
+        lazy = false, -- if you want to start TCP Listener on neovim startup
         keys = {
-            {
-                "<leader>a",
-                "<cmd>AssistantToggle<cr>",
-                desc = "Toggle Assistant.nvim window",
-            },
+            { "<leader>a", "<cmd>AssistantToggle<cr>", desc = "Assistant.nvim" },
         },
         opts = require("configs.cph"),
     },
@@ -142,6 +152,11 @@ return {
 
             -- Load custom Lua-based snippets
             require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets" })
+            vim.api.nvim_set_keymap("i", "<A-.>", [[<cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true })
+            vim.api.nvim_set_keymap("s", "<A-.>", [[<cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true })
+
+            vim.api.nvim_set_keymap("i", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true })
+            vim.api.nvim_set_keymap("s", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true })
         end,
     },
 }

@@ -28,22 +28,73 @@ for _, lsp in ipairs(default_servers) do
     })
 end
 
-lspconfig.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { "gopls" },
-    filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+require("lspconfig").gopls.setup({
+    cmd = { "gopls", "-vv", "serve" },
+    capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Ensure capabilities are passed
     settings = {
         gopls = {
-            completeUnimported = true,
-            usePlaceholders = true,
             analyses = {
                 unusedparams = true,
             },
+            staticcheck = true,
+            -- Key addition for import completion:
+            completeUnimported = true, -- Show completions for unimported packages
+            usePlaceholders = true, -- Add placeholders for function arguments
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+            },
         },
     },
+    on_attach = function(client, bufnr)
+        -- Optional: Map "gd" to Go-to-definition, etc.
+    end,
 })
+
+-- lspconfig.gopls.setup({
+--     cmd = { "gopls", "serve" },
+--     filetypes = { "go", "gomod" },
+--     root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+--     settings = {
+--         gopls = {
+--             completeUnimported = true,
+--             deepCompletion = true,
+--             usePlaceholders = true,
+--             analyses = {
+--                 unusedparams = true,
+--                 shadow = true,
+--             },
+--             staticcheck = true,
+--         },
+--     },
+--     -- Optional: attach additional functions or mappings on LSP attach
+--     on_attach = function(client, bufnr)
+--         -- For example, you can set up key mappings here.
+--         local opts = { noremap = true, silent = true }
+--         vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+--         -- Add more mappings or settings as desired.
+--     end,
+-- })
+
+-- lspconfig.gopls.setup({
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     cmd = { "gopls" },
+--     filetypes = { "go", "gomod", "gowork", "gotmpl" },
+--     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+--     settings = {
+--         gopls = {
+--             completeUnimported = true,
+--             usePlaceholders = true,
+--             analyses = {
+--                 unusedparams = true,
+--             },
+--         },
+--     },
+-- })
 
 lspconfig.clangd.setup({
     on_attach = function(client, bufnr)
@@ -59,6 +110,7 @@ lspconfig.pyright.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "python" },
+    cmd = { "pyright-langserver", "--stdio" },
 })
 
 -- lspconfig.eslint.setup({

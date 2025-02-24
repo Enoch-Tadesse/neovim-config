@@ -4,6 +4,7 @@ local luasnip = require("luasnip")
 
 cmp.setup({
     -- Snippet configuration
+
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body) -- Expand snippet
@@ -16,7 +17,7 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Use Shift+Tab to go to the previous item
         ["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll up in documentation
         ["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll down in documentation
-        ["<C-Space>"] = cmp.mapping.complete(), -- Trigger completions
+        ["<C-j>"] = cmp.mapping.complete(), -- Trigger completions
         ["<C-e>"] = cmp.mapping.abort(), -- Close completion
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm completion
     }),
@@ -26,11 +27,25 @@ cmp.setup({
 
     -- Completion sources
     sources = cmp.config.sources({
-        { name = "luasnip", priority = 1000 }, -- LuaSnip source for snippets
+        { name = "luasnip", priority = 500 }, -- LuaSnip source for snippets
+
         { name = "nvim_lsp", priority = 500 }, -- LSP source for completions
     }, {
         { name = "buffer", priority = 300 }, -- Buffer source for words already in the buffer
+        { name = "path" },
     }),
+
+    formatting = {
+        format = function(entry, vim_item)
+            vim_item.menu = ({
+                nvim_lsp = "[LSP]",
+                luasnip = "[Snippet]",
+                buffer = "[Buffer]",
+                path = "[Path]",
+            })[entry.source.name]
+            return vim_item
+        end,
+    },
 
     -- Filetype-specific configurations (for gitcommit)
     cmp.setup.filetype("gitcommit", {

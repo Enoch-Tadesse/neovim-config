@@ -19,6 +19,7 @@ local options = {
         "lua",
         "luadoc",
         "markdown",
+        "markdown_inline",
         "printf",
         "toml",
         "vim",

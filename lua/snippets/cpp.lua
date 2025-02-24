@@ -8,26 +8,10 @@ local f = ls.function_node
 local sn = ls.snippet_node
 local rep = require("luasnip.extras").rep
 
-vim.api.nvim_set_keymap("i", "<A-.>", [[<cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true })
-vim.api.nvim_set_keymap("s", "<A-.>", [[<cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true })
-
-vim.api.nvim_set_keymap("i", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true })
-vim.api.nvim_set_keymap("s", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true })
-
 ls.add_snippets("cpp", {
     s("prep", {
         t({
-            "#include <iostream>",
-            "#include <string>",
-            "#include <vector>",
-            "#include <limits>",
-            "#include <algorithm>",
-            "#include <set>",
-            "#include <unordered_set>",
-            "#include <map>",
-            "#include <unordered_map>",
-            "",
-            "using namespace std;",
+            "#include <bits/stdc++.h>",
             "",
         }),
     }),

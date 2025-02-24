@@ -10,7 +10,8 @@ local options = {
         typescriptreact = { "prettier" },
         css = { "prettier" },
         html = { "prettier" },
-        go = { "gofmt" },
+        -- go = { "gofmt" },
+        go = { "gopls" },
     },
     formatters = {
         -- cpp

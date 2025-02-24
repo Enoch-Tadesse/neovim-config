@@ -1,23 +1,94 @@
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
--- local i = ls.insert_node
+local i = ls.insert_node
+local rep = require("luasnip.extras").rep
+
+vim.api.nvim_set_keymap("i", "<A-.>", [[<cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true })
+vim.api.nvim_set_keymap("s", "<A-.>", [[<cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true })
+
+vim.api.nvim_set_keymap("i", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true })
+vim.api.nvim_set_keymap("s", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true })
 
 ls.add_snippets("python", {
 
-    s("numMatrix", {
+    s("smpre", {
+        i(1, "fillhere"),
         t({
-            "class NumMatrix:",
-            "",
-            "    def __init__(self, matrix: List[List[int]]):",
-            "        self.pre = [[0] * (len(matrix[0])+1) for _ in range(len(matrix)+1)]",
-            "        for r in range(len(matrix)):",
-            "            for c in range(len(matrix[r])):",
-            "                self.pre[r+1][c+1] = matrix[r][c] + self.pre[r+1][c] + self.pre[r][c+1] - self.pre[r][c]",
-            "",
-            "    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:",
-            "        return self.pre[row2+1][col2+1] - self.pre[row2+1][col1] - self.pre[row1][col2+1] + self.pre[row1][col1]",
+            " = deepcopy(",
         }),
+        i(2, "nums"),
+        t({
+            ")",
+            "",
+            "for nr in range(r):",
+            "\tfor nc in range(1, c):",
+            "\t\t",
+        }),
+        rep(1),
+        t({
+            "[nr][nc] += ",
+        }),
+        rep(1),
+        t({
+            "[nr][nc - 1]",
+            "",
+            "",
+        }),
+    }),
+
+    s("umpre", {
+        i(1, "fillhere"),
+        t(" = deepcopy("),
+        i(2, "nums"),
+        t({ ")", "" }),
+        t("for nc in range(c):"),
+        t({ "", "\tfor nr in range(1, r):" }),
+        t({ "\t\t" }),
+        rep(1),
+        t("[nr][nc] += "),
+        rep(1),
+        t({ "[nr - 1][nc]", "", "" }),
+    }),
+
+    s("fmpre", {
+        i(1, "pmat"),
+        t(" = deepcopy("),
+        i(2, "nums"),
+        t({ ")", "" }),
+        t("for nr in range(r):"),
+        t({ "", "\tfor nc in range(1, c):", "\t\t" }),
+        rep(1),
+        t(" [nr][nc] += "),
+        rep(1),
+        t("[nr][nc-1]"),
+        t({ "", "for nc in range(c):", "\tfor nr in range(1, r):", "\t\t" }),
+        rep(1),
+        t("[nr][nc] += "),
+        rep(1),
+        t({ "[nr - 1][nc]", "", "" }),
+        t(""),
+        i(0),
+    }),
+
+    s("gridsum", {
+        t({
+            "(",
+        }),
+        i(1, "pmat"),
+        t({ "    [row2][col2]" }),
+        t({ "    - (" }),
+        rep(1),
+        t({ "[row1 - 1][col2] if row1 > 0 else 0)" }),
+
+        t({ "    - (" }),
+        rep(1),
+        t({ "[row2][col1 - 1] if col1 > 0 else 0)" }),
+
+        t({ "    + (" }),
+        rep(1),
+        t({ "[row1 - 1][col1 - 1] if row1 > 0 and col1 > 0 else 0)" }),
+        t({ ")" }),
     }),
 
     s("fast", {
@@ -25,6 +96,7 @@ ls.add_snippets("python", {
             "import sys",
             "from collections import Counter, defaultdict",
             "from bisect import bisect_left, bisect_right",
+            "from copy import deepcopy",
             "",
             "input = sys.stdin.read",
             "",
@@ -37,26 +109,29 @@ ls.add_snippets("python", {
             "for _ in range(t):",
             "    ",
         }),
-        -- i(1, "// Description: Template for a python program."),
     }),
+
     s("rint", {
         t({
             "int(sys.stdin.readline())",
             "",
         }),
     }),
+
     s("rstr", {
         t({
             "sys.stdin.readline().strip()",
             "",
         }),
     }),
+
     s("riarr", {
         t({
             "list(map(int, sys.stdin.readline().split()))",
             "",
         }),
     }),
+
     s("rsarr", {
         t({
             "sys.stdin.readline().split()",
@@ -70,18 +145,21 @@ ls.add_snippets("python", {
             "",
         }),
     }),
+
     s("rcsmat", {
         t({
             "[[x for x in sys.stdin.readline().strip()] for _ in range(r)]",
             "",
         }),
     }),
+
     s("rsmat", {
         t({
             "[list(sys.stdin.readline().split()) for _ in range(r)]",
             "",
         }),
     }),
+
     s("rimat", {
         t({
             "[list(map(int,sys.stdin.readline.split())) for _ in range(r)]",
