@@ -6,7 +6,6 @@ return {
         "nvim-java/nvim-java-test",
         "nvim-java/nvim-java-dap",
         "MunifTanjim/nui.nvim",
-        -- "neovim/nvim-lspconfig",
         "mfussenegger/nvim-dap",
         {
             "williamboman/mason.nvim",
@@ -19,9 +18,28 @@ return {
         },
     },
     config = function()
-        require("java").setup()
+        require("java").setup({
+            jdk = {
+                auto_install = false,
+                version = "23.0.2",
+            },
+        })
+        -- local jdkPath = "/usr/lib/jvm/jdk-23.0.2-oracle-x64/"
         require("lspconfig").jdtls.setup({
-            -- filetypes = { "java" },
+            -- settings = {
+            --     java = {
+            --         configuration = {
+            --             runtimes = {
+            --                 {
+            --                     name = "JavaSE-23",
+            --                     path = jdkPath,
+            --                     default = true,
+            --                 },
+            --             },
+            --         },
+            --     },
+            -- },
+            filetypes = { "java" },
         })
     end,
 }

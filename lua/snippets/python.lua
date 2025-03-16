@@ -12,6 +12,47 @@ vim.api.nvim_set_keymap("s", "<A-,>", [[<cmd>lua require'luasnip'.jump(-1)<CR>]]
 
 ls.add_snippets("python", {
 
+    s("recur", {
+        t({
+            "import sys",
+            "import threading",
+            "from collections import Counter, defaultdict",
+            "from bisect import bisect_left, bisect_right",
+            "from copy import deepcopy",
+            "import math",
+            "",
+            "# input = input",
+            "input = sys.stdin.readline",
+            "",
+            "",
+            "def solve():",
+            "\t",
+        }),
+        i(0),
+        t({
+            "",
+            "",
+            "",
+            "def main():",
+            "\tt = ",
+        }),
+        i(1, "rint"),
+        t({
+            "",
+            "\tfor _ in range(t):",
+            "\t\tsolve()",
+            "",
+            "",
+            "if __name__ == '__main__':",
+            "\tsys.setrecursionlimit(1 << 30)",
+            "\tthreading.stack_size(1 << 27)",
+            "",
+            "\tmain_thread = threading.Thread(target=main)",
+            "\tmain_thread.start()",
+            "\tmain_thread.join()",
+        }),
+    }),
+
     s("smpre", {
         i(1, "fillhere"),
         t({
@@ -97,72 +138,103 @@ ls.add_snippets("python", {
             "from collections import Counter, defaultdict",
             "from bisect import bisect_left, bisect_right",
             "from copy import deepcopy",
+            "import math",
             "",
-            "input = sys.stdin.read",
+            "# input = input",
+            "input = sys.stdin.readline",
+            "",
+            "",
+            "def solve():",
+            "\t",
+        }),
+        i(0),
+        t({
+            "",
+            "",
+            "",
+            "def main():",
+            "\tt = ",
+        }),
+        i(1, "rint"),
+        t({
+            "",
+            "\tfor _ in range(t):",
+            "\t\tsolve()",
+            "",
+            "",
+            "if __name__ == '__main__':",
+            "\tmain()",
+        }),
+    }),
+
+    s("rimat", {
+        t({
+            "[list(map(int, input().split())) for _ in range(r)]",
             "",
         }),
     }),
 
     s("tcase", {
         t({
-            "t = int(sys.stdin.readline())",
+            "t = int(input())",
             "for _ in range(t):",
-            "    ",
+            "\t",
         }),
+        i(0),
     }),
 
     s("rint", {
         t({
-            "int(sys.stdin.readline())",
+            "int(input())",
             "",
         }),
     }),
 
     s("rstr", {
         t({
-            "sys.stdin.readline().strip()",
+            "input().strip()",
             "",
         }),
     }),
 
     s("riarr", {
         t({
-            "list(map(int, sys.stdin.readline().split()))",
+            "list(map(int, input().split()))",
             "",
         }),
     }),
 
     s("rsarr", {
         t({
-            "sys.stdin.readline().split()",
+            "input().split()",
             "",
         }),
     }),
 
     s("rcstr", {
         t({
-            "list(x for x in sys.stdin.readline().strip())",
+            "list(x for x in input().strip())",
             "",
         }),
     }),
 
     s("rcsmat", {
         t({
-            "[[x for x in sys.stdin.readline().strip()] for _ in range(r)]",
+            "[[x for x in input().strip()] for _ in range(r)]",
             "",
         }),
     }),
 
     s("rsmat", {
         t({
-            "[list(sys.stdin.readline().split()) for _ in range(r)]",
+            "[list(input().split()) for _ in range(r)]",
             "",
         }),
     }),
 
     s("rimat", {
         t({
-            "[list(map(int,sys.stdin.readline.split())) for _ in range(r)]",
+            "[list(map(int,input.split())) for _ in range(r)]",
             "",
         }),
     }),

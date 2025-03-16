@@ -1,7 +1,7 @@
 local indentscope = require("mini.indentscope")
 local options = {
     symbol = "│",
-    options = { try_as_border = true, n_lines = 10000, indent_at_cursor = true },
+    options = { border = "both", try_as_border = true, n_lines = 10000, indent_at_cursor = true },
     draw = {
         delay = 50,
         -- animation = require("mini.indentscope").gen_animation.none(),

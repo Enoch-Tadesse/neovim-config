@@ -19,6 +19,9 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", { noremap = true, silent = tr
 map("n", "<leader>fb", ":Telescope buffers<CR>", { noremap = true, silent = true })
 map("n", "<leader>fh", ":Telescope help_tags<CR>", { noremap = true, silent = true })
 
+-- leader + do for viewing popup window docs, lsp provided
+map("n", "<leader>df", ":lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+map("n", "<leader>do", ":lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 -- vim.key.set({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
 -- map("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })

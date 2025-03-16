@@ -1,4 +1,5 @@
 return {
+    -- lazy.nvim
     {
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -14,7 +15,7 @@ return {
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
         ---@module 'render-markdown'
-        ---@type render.md.UserConfig
+        -- -@type render.md.UserConfig
         opts = {},
     },
 
@@ -132,14 +133,25 @@ return {
 
     {
         "A7lavinraj/assistant.nvim",
-        commit = "ca42f5231203ff3c9356180f2d4ca96061a70ef4",
         dependencies = { "folke/snacks.nvim" }, -- optional but recommended
         lazy = false, -- if you want to start TCP Listener on neovim startup
+        enabled = true,
         keys = {
-            { "<leader>a", "<cmd>AssistantToggle<cr>", desc = "Assistant.nvim" },
+            { "<leader>a", "<cmd>Assistant<cr>", desc = "Assistant.nvim" },
         },
-        opts = require("configs.cph"),
+        opts = {},
     },
+
+    -- {
+    --     "A7lavinraj/assistant.nvim",
+    --     commit = "ca42f5231203ff3c9356180f2d4ca96061a70ef4",
+    --     dependencies = { "folke/snacks.nvim" }, -- optional but recommended
+    --     lazy = false, -- if you want to start TCP Listener on neovim startup
+    --     keys = {
+    --         { "<leader>a", "<cmd>AssistantToggle<cr>", desc = "Assistant.nvim" },
+    --     },
+    --     opts = require("configs.cph"),
+    -- },
 
     {
         "L3MON4D3/LuaSnip",

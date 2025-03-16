@@ -5,7 +5,6 @@ lint.linters_by_ft = {
     -- [" asm "] = { "nasm" },
     -- python = { "flake8" }, -- this caused trouble with cph
     javascript = { "eslint_d" },
-    -- java = { "jdtls" },
 }
 
 lint.linters.luacheck.args = {

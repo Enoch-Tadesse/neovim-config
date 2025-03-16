@@ -13,7 +13,7 @@ local options = {
         "typescript",
         "tsx",
         "json",
-        -- "java",
+        "java",
         "html",
         "css",
         "lua",
