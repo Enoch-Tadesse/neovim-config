@@ -36,3 +36,7 @@ vim.schedule(function()
     require("mappings")
     require("telescope")
 end)
+
+vim.cmd([[ highlight NvimTreeNormal guibg=NONE ctermbg=NONE ]])
+vim.cmd([[ highlight NvimTreeNormalNC guibg=NONE ctermbg=NONE ]])
+vim.cmd([[ highlight NvimTreeWinSeparator guibg=NONE ctermbg=NONE ]])

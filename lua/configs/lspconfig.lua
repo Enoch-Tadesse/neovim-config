@@ -9,15 +9,15 @@ local util = require("lspconfig/util")
 lspconfig.servers = {
     -- "jdtls",
     "gopls",
-    "lua_ls",
     "pyright",
+    "lua_ls",
     "clangd",
     "ts_ls",
     "eslint",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "gopls", "pyright", "clangd", "ts_ls", "eslint" }
+local default_servers = { "gopls", "clangd", "ts_ls", "eslint" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -27,6 +27,15 @@ for _, lsp in ipairs(default_servers) do
         capabilities = capabilities,
     })
 end
+
+lspconfig.pyright.setup({
+    capabilities = capabilities,
+    filetypes = { "python" },
+    on_attach = function(client, bufnr)
+        -- Disable signature help
+        client.server_capabilities.signatureHelpProvider = false
+    end,
+})
 
 require("lspconfig").gopls.setup({
     cmd = { "gopls", "-vv", "serve" },
@@ -62,18 +71,6 @@ lspconfig.clangd.setup({
     end,
     on_init = on_init,
     capabilities = capabilities,
-})
-
-lspconfig.pyright.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    handlers = { -- turns on auto focus on docs
-        ["textDocument/signatureHelp"] = function(...)
-            return
-        end,
-    },
-    filetypes = { "python" },
-    cmd = { "pyright-langserver", "--stdio" },
 })
 
 -- lspconfig.eslint.setup({

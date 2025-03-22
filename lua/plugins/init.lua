@@ -133,25 +133,13 @@ return {
 
     {
         "A7lavinraj/assistant.nvim",
-        dependencies = { "folke/snacks.nvim" }, -- optional but recommended
-        lazy = false, -- if you want to start TCP Listener on neovim startup
-        enabled = true,
+        -- dependencies = { "folke/snacks.nvim" }, -- optional but recommended
+        lazy = false, -- Start TCP Listener on Neovim startup
         keys = {
             { "<leader>a", "<cmd>Assistant<cr>", desc = "Assistant.nvim" },
         },
         opts = {},
     },
-
-    -- {
-    --     "A7lavinraj/assistant.nvim",
-    --     commit = "ca42f5231203ff3c9356180f2d4ca96061a70ef4",
-    --     dependencies = { "folke/snacks.nvim" }, -- optional but recommended
-    --     lazy = false, -- if you want to start TCP Listener on neovim startup
-    --     keys = {
-    --         { "<leader>a", "<cmd>AssistantToggle<cr>", desc = "Assistant.nvim" },
-    --     },
-    --     opts = require("configs.cph"),
-    -- },
 
     {
         "L3MON4D3/LuaSnip",

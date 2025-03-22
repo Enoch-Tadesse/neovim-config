@@ -4,11 +4,21 @@ local luasnip = require("luasnip")
 
 cmp.setup({
     -- Snippet configuration
+    --
 
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body) -- Expand snippet
         end,
+    },
+    preselect = cmp.PreselectMode.Item, -- Always preselect the first item
+    completion = {
+        completeopt = "menu,menuone,noinsert", -- Ensures the first item is highlighted but not auto-inserted
+    },
+
+    window = {
+        -- completion = cmp.config.window.bordered(), -- Adds a border to completion menu
+        documentation = cmp.config.window.bordered(), -- Adds a border to documentation popup
     },
 
     -- Key mappings
