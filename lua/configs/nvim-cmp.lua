@@ -1,11 +1,12 @@
 -- Import cmp and luasnip
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-
 cmp.setup({
     -- Snippet configuration
     --
-
+    experimental = {
+        ghost_text = true, -- inline preview
+    },
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body) -- Expand snippet
@@ -37,9 +38,9 @@ cmp.setup({
 
     -- Completion sources
     sources = cmp.config.sources({
-        { name = "luasnip", priority = 500 }, -- LuaSnip source for snippets
+        { name = "luasnip", priority = 1500 }, -- LuaSnip source for snippets, includes the custom ones
 
-        { name = "nvim_lsp", priority = 500 }, -- LSP source for completions
+        { name = "nvim_lsp", priority = 700 }, -- LSP source for completions
     }, {
         { name = "buffer", priority = 300 }, -- Buffer source for words already in the buffer
         { name = "path" },

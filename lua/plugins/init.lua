@@ -1,5 +1,32 @@
 return {
+
     -- lazy.nvim
+    -- {
+    --     "nvimdev/dashboard-nvim",
+    --     event = "VimEnter",
+    --     dependencies = { "nvim-tree/nvim-web-devicons" },
+    --     config = function()
+    --         require("dashboard").setup({
+    --             theme = "hyper",
+    --             config = {
+    --                 header = { "Welcome to Neovim!" },
+    --                 center = {
+    --                     { icon = "📂 ", desc = "Open File", action = "Telescope find_files" },
+    --                     { icon = "🔍 ", desc = "Find Word", action = "Telescope live_grep" },
+    --                     { icon = "⚙️ ", desc = "Config", action = "e $MYVIMRC" },
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
+    -- {
+    --     "folke/snacks.nvim",
+    --     priority = 1000,
+    --     lazy = false,
+    --     ---@type snacks.Config
+    --     opts = require("configs.snacks"),
+    -- },
+
     {
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -13,7 +40,7 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        -- dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
         ---@module 'render-markdown'
         -- -@type render.md.UserConfig
         opts = {},
@@ -135,6 +162,7 @@ return {
         "A7lavinraj/assistant.nvim",
         -- dependencies = { "folke/snacks.nvim" }, -- optional but recommended
         lazy = false, -- Start TCP Listener on Neovim startup
+        enabled = true,
         keys = {
             { "<leader>a", "<cmd>Assistant<cr>", desc = "Assistant.nvim" },
         },

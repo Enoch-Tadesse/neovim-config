@@ -9,10 +9,45 @@ local sn = ls.snippet_node
 local rep = require("luasnip.extras").rep
 
 ls.add_snippets("cpp", {
-    s("prep", {
+    -- s("prep", {
+    --     t({
+    --         "#include <bits/stdc++.h>",
+    --         "",
+    --     }),
+    -- }),
+    s("fast", {
         t({
             "#include <bits/stdc++.h>",
+            "using namespace std;",
+            "template <typename T>",
+            "T getMax(const std::vector<T> &nums) {",
+            "\treturn *max_element(nums.begin(), nums.end());",
+            "}",
             "",
+            "",
+            "void solve(){",
+            "\t",
+        }),
+        i(0),
+        t({ "", "}" }),
+        t({
+            "",
+            "int main(){",
+            "",
+            "\tios::sync_with_stdio(false);",
+            "\tcin.tie(nullptr);",
+            "",
+            "\t",
+        }),
+        t({ "int t = 1;", "\t" }),
+        i(1),
+
+        t({
+            "",
+            "\twhile(t--){",
+            "\t\tsolve();",
+            "\t}",
+            "}",
         }),
     }),
 
@@ -29,7 +64,7 @@ ls.add_snippets("cpp", {
 
     s("rint", {
         t("int "),
-        i(1, "nums"),
+        i(1, "num"),
         t({ ";", "cin >> " }),
         rep(1),
         t({ ";", "" }), -- Ends the line after the snippet content
@@ -76,6 +111,16 @@ ls.add_snippets("cpp", {
         -- t({ "" }),
         rep(1),
         t(".assign(s.begin(), s.end());"),
+        i(0),
+    }),
+
+    s("rcsmat", {
+        t("vector<vector<char>> "),
+        i(1, "mat"),
+        t({ "(r, vector<char>(c));", "" }),
+        t({ "for (int i = 0; i < r; i++) {", "\tstring s;", "\tcin >> s;", "\t" }),
+        rep(1),
+        t({ "[i].assign(s.begin(), s.end());", "}" }),
         i(0),
     }),
 

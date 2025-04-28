@@ -17,7 +17,7 @@ lspconfig.servers = {
 }
 
 -- list of servers configured with default config.
-local default_servers = { "gopls", "clangd", "ts_ls", "eslint" }
+local default_servers = { "clangd", "ts_ls", "eslint" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -35,8 +35,12 @@ lspconfig.pyright.setup({
         -- Disable signature help
         client.server_capabilities.signatureHelpProvider = false
     end,
+    settings = {
+        python = {
+            pythonPath = "/home/henok/Desktop/messi/tele/bin/python",
+        },
+    },
 })
-
 require("lspconfig").gopls.setup({
     cmd = { "gopls", "-vv", "serve" },
     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Ensure capabilities are passed
@@ -59,6 +63,7 @@ require("lspconfig").gopls.setup({
         },
     },
     on_attach = function(client, bufnr)
+        client.server_capabilities.signatureHelpProvider = false
         -- Optional: Map "gd" to Go-to-definition, etc.
     end,
 })
@@ -66,6 +71,7 @@ require("lspconfig").gopls.setup({
 lspconfig.clangd.setup({
     on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = true
+        client.server_capabilities.signatureHelpProvider = false
         client.server_capabilities.documentRangeFormattingProvider = true
         on_attach(client, bufnr)
     end,
