@@ -24,6 +24,6 @@ for _, v in pairs(lint.linters_by_ft) do
 end
 
 require("mason-nvim-lint").setup({
-    -- ensure_installed = all_linters, -- caused a problem for turning this on somehow
+    ensure_installed = all_linters, -- caused a problem for turning this on somehow
     automatic_installation = false,
 })

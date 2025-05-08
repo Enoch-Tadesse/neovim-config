@@ -13,11 +13,10 @@ lspconfig.servers = {
     "lua_ls",
     "clangd",
     "ts_ls",
-    "eslint",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "clangd", "ts_ls", "eslint" }
+local default_servers = { "clangd" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -27,6 +26,17 @@ for _, lsp in ipairs(default_servers) do
         capabilities = capabilities,
     })
 end
+
+lspconfig.ts_ls.setup({
+    on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+        on_attach(client, bufnr)
+    end,
+    on_init = on_init,
+    -- capabilities = capabilities,
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
 
 lspconfig.pyright.setup({
     capabilities = capabilities,
@@ -41,6 +51,7 @@ lspconfig.pyright.setup({
         },
     },
 })
+
 require("lspconfig").gopls.setup({
     cmd = { "gopls", "-vv", "serve" },
     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Ensure capabilities are passed
@@ -70,7 +81,7 @@ require("lspconfig").gopls.setup({
 
 lspconfig.clangd.setup({
     on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = true
+        client.server_capabilities.documentFormattingProvider = false -- true for autoformatting
         client.server_capabilities.signatureHelpProvider = false
         client.server_capabilities.documentRangeFormattingProvider = true
         on_attach(client, bufnr)
@@ -79,41 +90,6 @@ lspconfig.clangd.setup({
     capabilities = capabilities,
 })
 
--- lspconfig.eslint.setup({
---     on_attach = function(client, bufnr)
---         client.server_capabilities.documentFormattingProvider = false
---         client.server_capabilities.documentRangeFormattingProvider = true
---         on_attach(client, bufnr)
---     end,
---     settings = {
---         format = true, -- Automatically fix lint issues
---         codeActionOnSave = {
---             enable = true,
---             mode = "all",
---         },
---     },
---     on_init = on_init,
---     capabilities = capabilities,
--- })
-
-lspconfig.ts_ls.setup({
-    on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false -- Disable formatting (use Prettier)
-        on_attach(client, bufnr)
-    end,
-    on_init = function(client)
-        -- Additional initialization if needed
-    end,
-    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-    settings = {
-        tsserver = {
-            preferences = {
-                importModuleSpecifierPreference = "relative",
-                quotePreference = "single",
-            },
-        },
-    },
-})
 
 lspconfig.lua_ls.setup({
     on_attach = on_attach,

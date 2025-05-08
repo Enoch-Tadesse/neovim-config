@@ -34,7 +34,7 @@ require("nvchad.autocmds")
 
 vim.schedule(function()
     require("mappings")
-    require("telescope")
+    -- require("telescope")
 end)
 
 vim.cmd([[ highlight NvimTreeNormal guibg=NONE ctermbg=NONE ]])

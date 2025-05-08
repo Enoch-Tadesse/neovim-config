@@ -1,31 +1,28 @@
 return {
 
-    -- lazy.nvim
-    -- {
-    --     "nvimdev/dashboard-nvim",
-    --     event = "VimEnter",
-    --     dependencies = { "nvim-tree/nvim-web-devicons" },
-    --     config = function()
-    --         require("dashboard").setup({
-    --             theme = "hyper",
-    --             config = {
-    --                 header = { "Welcome to Neovim!" },
-    --                 center = {
-    --                     { icon = "📂 ", desc = "Open File", action = "Telescope find_files" },
-    --                     { icon = "🔍 ", desc = "Find Word", action = "Telescope live_grep" },
-    --                     { icon = "⚙️ ", desc = "Config", action = "e $MYVIMRC" },
-    --                 },
-    --             },
-    --         })
-    --     end,
-    -- },
-    -- {
-    --     "folke/snacks.nvim",
-    --     priority = 1000,
-    --     lazy = false,
-    --     ---@type snacks.Config
-    --     opts = require("configs.snacks"),
-    -- },
+    {
+        "mfussenegger/nvim-lint",
+        opts = {
+            linters_by_ft = {
+                javascript = { "eslint_d" },
+            },
+        },
+        config = function()
+            require("lint").linters.eslint_d = {
+                cmd = "eslint_d",
+                stdin = false,
+                args = {
+                    "--format",
+                    "unix",
+                },
+            }
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+                callback = function()
+                    require("lint").try_lint()
+                end,
+            })
+        end,
+    },
 
     {
         "nvim-telescope/telescope.nvim",
@@ -69,14 +66,6 @@ return {
         end,
     },
 
-    -- {
-    --     "jose-elias-alvarez/null-ls.nvim",
-    --     event = "VeryLazy",
-    --     opts = function()
-    --         return require("configs.null-ls")
-    --     end,
-    -- },
-
     {
         "echasnovski/mini.indentscope",
         version = false, -- Use latest commit
@@ -118,28 +107,11 @@ return {
     },
 
     {
-        "mfussenegger/nvim-lint",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("configs.lint")
-        end,
-    },
-
-    {
         "williamboman/mason-lspconfig.nvim",
         event = "VeryLazy",
         dependencies = { "nvim-lspconfig" },
         config = function()
             require("configs.mason-lspconfig")
-        end,
-    },
-
-    {
-        "rshkarin/mason-nvim-lint",
-        event = "VeryLazy",
-        dependencies = { "nvim-lint" },
-        config = function()
-            require("configs.mason-lint")
         end,
     },
 
@@ -154,19 +126,23 @@ return {
 
     {
         "stevearc/conform.nvim",
-        event = "BufWritePre", -- uncomment for format on save
+        -- event = "BufWritePre", -- uncomment for format on save
         opts = require("configs.conform"),
     },
 
     {
         "A7lavinraj/assistant.nvim",
-        -- dependencies = { "folke/snacks.nvim" }, -- optional but recommended
-        lazy = false, -- Start TCP Listener on Neovim startup
+        lazy = false,
         enabled = true,
         keys = {
             { "<leader>a", "<cmd>Assistant<cr>", desc = "Assistant.nvim" },
         },
-        opts = {},
+        opts = {
+            ui = {
+                border = "single",
+                diff_mode = true,
+            },
+        },
     },
 
     {
