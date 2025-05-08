@@ -1,6 +1,0 @@
-package nvim
-
-
-import "fmt"
-
-
